@@ -1,6 +1,32 @@
 # Rehab-Sim-Learning
 
-本项目用于基于肌肉信号时间序列（多通道 `Top_*`）预测物理参数 **K** 与 **C**（标签从文件名解析得到），包含深度学习与传统机器学习两类基线脚本，脚本运行后会输出评估指标并保存模型文件到 `model/`。
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-required-red)
+
+本项目用于基于肌肉信号时间序列（多通道 `Top_*`）回归预测物理参数 **K** 与 **C**（标签从文件名解析得到），包含深度学习与传统机器学习两类基线脚本。脚本运行后会输出评估指标并保存模型文件到 `model/`。
+
+## 目录
+
+- [快速开始](#快速开始)
+- [目录结构](#目录结构)
+- [数据约定（与代码保持一致）](#数据约定与代码保持一致)
+- [环境依赖](#环境依赖)
+- [运行方式](#运行方式)
+- [输出产物](#输出产物)
+- [常见问题](#常见问题)
+- [贡献](#贡献)
+- [许可证](#许可证)
+
+## 快速开始
+
+在项目根目录执行（确保相对路径 `./data1`、`./data2` 可用）：
+
+```bash
+pip install numpy pandas matplotlib scikit-learn joblib
+pip install torch
+pip install xgboost
+python ResNet_v2.py
+```
 
 ## 目录结构
 
@@ -43,14 +69,6 @@
 - `torch`（深度模型需要）
 - `xgboost`（仅 `XGBoost.py` 需要）
 
-示例安装（按你的环境选择 CUDA/CPU 版 `torch`）：
-
-```bash
-pip install numpy pandas matplotlib scikit-learn joblib
-pip install torch
-pip install xgboost
-```
-
 ## 运行方式
 
 在项目根目录执行（确保相对路径 `./data1`、`./data2` 可用）：
@@ -66,7 +84,7 @@ python ResNet_v2.py
 python Inception.py
 ```
 
-运行后常见输出/产物：
+## 输出产物
 
 - 终端打印训练过程与评估指标（RMSE/MAE/R² 等）
 - 弹出结果可视化图窗（`matplotlib`）
@@ -78,3 +96,10 @@ python Inception.py
 - 运行很慢：深度模型默认可用 GPU（`cuda`）则自动使用，否则走 CPU；可尝试减小 `NUM_EPOCHS/EPOCHS` 或 `SEQ_LEN` 做快速验证。
 - 结果不可复现：深度训练可能受随机性与硬件影响；`train_test_split(random_state=42)` 只能保证拆分一致，不能保证训练完全一致。
 
+## 贡献
+
+欢迎提 Issue / PR（建议同时附上：运行脚本、环境版本、关键日志、复现步骤）。
+
+## 许可证
+
+本仓库当前未声明开源许可证；如需开源/发布，请先补充 `LICENSE` 并在 README 中更新说明。
