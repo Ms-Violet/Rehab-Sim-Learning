@@ -1,3 +1,26 @@
+"""
+ResNet.py
+
+功能:
+  - 使用 1D-ResNet 对肌肉信号序列进行回归，预测物理参数 K 与 C。
+  - 读取 ./data2 下 F/D/P 三自由度数据，按文件名配对组成一个样本。
+
+数据约定:
+  - 文件名形如: {k}_{c}_{F|D|P}_p.csv；k、c 会除以 1000。
+  - 输入通道仅使用 SELECTED_MUSCLES 中列，缺失列补 0；序列长度 SEQ_LEN=800，不足补 0、超长截断。
+  - 训练时对输入做 StandardScaler，对目标做 TargetScaler(标准化/反归一化)。
+
+输出:
+  - 训练/评估日志与可视化图像(matplotlib)。
+  - 模型与归一化器保存到 model/:
+    - model/resnet_fusion_model.pth
+    - model/resnet_input_scaler.pkl
+    - model/resnet_target_scaler.pkl
+
+运行:
+  - 在项目根目录执行: python ResNet.py
+"""
+
 import os
 import glob
 import numpy as np

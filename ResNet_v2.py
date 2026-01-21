@@ -1,3 +1,26 @@
+"""
+ResNet_v2.py
+
+功能:
+  - Late Fusion 版 1D-ResNet：将 F/D/P 三个自由度的肌肉通道分支编码后融合，回归预测 K 与 C。
+  - 读取 ./data2 下 F/D/P 三自由度数据，按文件名配对组成一个样本。
+
+数据约定:
+  - 文件名形如: {k}_{c}_{F|D|P}_p.csv；k、c 会除以 1000。
+  - 每个自由度使用 SELECTED_MUSCLES 对应的通道(缺失列补 0)；序列长度 SEQ_LEN=800。
+  - 训练时对输入做 StandardScaler，对目标做 TargetScaler(标准化/反归一化)。
+
+输出:
+  - 训练/评估日志与可视化图像(matplotlib)。
+  - 模型与归一化器保存到 model/:
+    - model/resnet_late_fusion_model.pth
+    - model/resnet_lf_input_scaler.pkl
+    - model/resnet_lf_target_scaler.pkl
+
+运行:
+  - 在项目根目录执行: python ResNet_v2.py
+"""
+
 import os
 import glob
 import numpy as np

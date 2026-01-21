@@ -1,3 +1,22 @@
+"""
+InceptionTime.py
+
+功能:
+  - 使用 InceptionTime 结构对肌肉信号序列进行回归，预测物理参数 K 与 C。
+  - 读取 ./data2 下 F/D/P 三自由度数据，按文件名配对组成一个样本。
+
+数据约定:
+  - 文件名形如: {k}_{c}_{F|D|P}_p.csv；k、c 会除以 1000，并对标签做 log 变换用于训练。
+  - 输入通道仅使用 SELECTED_MUSCLES 中列，缺失列补 0；序列长度 SEQ_LEN=800，不足补 0、超长截断。
+
+输出:
+  - 训练曲线与评估指标打印；可视化散点/损失曲线。
+  - 模型权重保存到: model/fusion_model_final_10pct.pth (可能覆盖同名文件)。
+
+运行:
+  - 在项目根目录执行: python InceptionTime.py
+"""
+
 import os
 import glob
 import pandas as pd

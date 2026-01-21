@@ -1,3 +1,25 @@
+"""
+PLSR.py
+
+功能:
+  - 使用偏最小二乘回归(PLSRegression)基线模型预测物理参数 K 与 C。
+  - 从 ./data1 读取单文件单样本 CSV，并对时间序列提取统计特征作为输入。
+
+数据约定:
+  - 文件名形如: {k}_{c}_p.csv；k、c 会除以 1000。
+  - CSV 第 1 列为 time，其后为肌肉通道；脚本会跳过 time，对其余通道提取统计量:
+    - 均值/标准差/最大值/均方根(RMS)
+
+输出:
+  - 评估指标打印与可视化散点图。
+  - 训练好的模型与 scaler 保存到 model/:
+    - model/plsr_simple_model.pkl
+    - model/plsr_simple_scaler.pkl
+
+运行:
+  - 在项目根目录执行: python PLSR.py
+"""
+
 import os
 import glob
 import numpy as np

@@ -1,3 +1,22 @@
+"""
+GRU_bidir.py
+
+功能:
+  - 基于肌肉信号时间序列(多通道 Top_*)回归预测物理参数 K 与 C。
+  - 数据来源为 ./data2 下的三自由度子目录(Flexion/Deviation/Pronation)，按文件名配对组成一个样本。
+
+数据约定:
+  - 文件名形如: {k}_{c}_{F|D|P}_p.csv；k、c 会除以 1000，并对标签做 log 变换用于训练。
+  - 输入通道仅使用 SELECTED_MUSCLES 中列，缺失列补 0；序列长度 SEQ_LEN=800，不足补 0、超长截断。
+
+输出:
+  - 训练/评估日志与可视化图像(matplotlib)。
+  - 模型权重保存到: model/bigru_fusion_model.pth (可能覆盖同名文件)。
+
+运行:
+  - 在项目根目录执行: python GRU_bidir.py
+"""
+
 import os
 import glob
 import numpy as np
